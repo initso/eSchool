@@ -3,7 +3,7 @@
 // View Language
 //
 $.tabList.title = L('list', 'List');
-$.list.title = L('list', 'List');
+$.list.title = L('list', 'List1');
 
 
 //
