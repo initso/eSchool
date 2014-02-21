@@ -9,6 +9,8 @@ var dataId = (args.dataId === 0 || args.dataId > 0) ? args.dataId : '';
 // The list controller "shouldn't" call detail unless it has an id it is going to pass it in the first place
 // Just double check we got it anyway and do nothing if we didn't
 //
+
+
 if (dataId !== '') {
     //
     // Fetch data row and assign title value to the label/window title (nothing else!)

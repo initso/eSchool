@@ -1,4 +1,46 @@
 function Controller() {
+    function createRow(time, name, prof, i) {
+        var tableRow = Ti.UI.createTableViewRow({
+            dataId: i,
+            className: "row",
+            objName: "row",
+            height: Alloy.Globals.Styles.TableViewRow.height,
+            someRandomVar: "Just as an example " + i
+        });
+        var timeView = Ti.UI.createView({
+            left: 0,
+            width: "40%",
+            height: Ti.UI.Size
+        });
+        var nameView = Ti.UI.createView({
+            left: "40%",
+            width: "60%",
+            height: Ti.UI.Size
+        });
+        var profView = Ti.UI.createView({
+            left: "75%",
+            width: "25%",
+            height: Ti.UI.Size
+        });
+        timeView.add(Ti.UI.createLabel({
+            top: 5,
+            right: 5,
+            bottom: 5,
+            left: 5,
+            text: time
+        }));
+        nameView.add(Ti.UI.createLabel({
+            top: 5,
+            right: 5,
+            bottom: 5,
+            left: 5,
+            text: name
+        }));
+        tableRow.add(timeView);
+        tableRow.add(nameView);
+        timeView = nameView = profView = null;
+        return tableRow;
+    }
     function tableClick(e) {
         var dataId = e.rowData.dataId;
         e.rowData.someRandomVar;
@@ -92,8 +134,8 @@ function Controller() {
     $.__views.tabList && $.addTopLevelView($.__views.tabList);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.tabList.title = L("list", "List");
-    $.list.title = L("list", "List1");
+    $.tabList.title = L("list", "Schedule");
+    $.list.title = L("list", "Schedule");
     Ti.App.addEventListener("dataUpdated", function() {
         if (!_.isEmpty($.tableRecords.data)) {
             $.tableRecords.data = [];
@@ -110,15 +152,7 @@ function Controller() {
                 var recordData = [];
                 for (var i = 0; dataStore.length > i; i++) {
                     var record = dataStore[i];
-                    var row = Ti.UI.createTableViewRow({
-                        title: record.title,
-                        dataId: i,
-                        className: "row",
-                        objName: "row",
-                        height: Alloy.Globals.Styles.TableViewRow.height,
-                        someRandomVar: "Just as an example " + i
-                    });
-                    recordData.push(row);
+                    recordData.push(createRow(record.time, record.title, record.prof, i));
                 }
                 $.tableRecords.setData(recordData);
             } else {
