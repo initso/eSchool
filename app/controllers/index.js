@@ -4,7 +4,7 @@ var Cloud = require('ti.cloud');
 Cloud.Users.showMe(function(e) {
 	if (e.success) {
 		$.tabGroup.open();
-		$.tabGroup.setActiveTab(1);
+		$.tabGroup.setActiveTab(0);
 		Alloy.Globals.tabGroup = $.tabGroup;
 
 		//
