@@ -64,7 +64,7 @@ Ti.App.addEventListener('dataUpdated', function(e) {
 
 	// Set loading state
 	$.activityIndicator.show();
-	$.labelNoRecords.visible = false;
+	$.labelNoRecords.visible = false; 
 
 	// Wrap the following in setTimeout purely to show activityIndicator (simulate network activity)
 	setTimeout(function() {

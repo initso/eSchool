@@ -1,5 +1,6 @@
 <Alloy>
-    <Window id="detail"> 
+    <Window id="detail">
+    	 
         <Label id="detailLabel" />
     </Window>
 </Alloy>
