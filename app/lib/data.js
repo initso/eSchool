@@ -85,20 +85,6 @@ Cloud.Objects.query({
 	}
 });
 
-var dataBuilt = true;
-
-// When app opens, build some dummy data - we are not going to persist the data though
-// Create/Delete actions will be applied to this dataStore, which will be reset on relaunch
-if (!dataBuilt) {
-
-	for (var i = 0; i < 10; i++) {
-		var row = {
-			title : 'History- Hemant Sir ',
-			time : '10-10:30 am'
-		};
-		dataStore.push(row);
-	}
-}
 
 // Delete
 exports.deleteItem = function(id) {

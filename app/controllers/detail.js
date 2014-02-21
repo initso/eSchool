@@ -18,7 +18,7 @@ if (dataId !== '') {
     var AppData = require('data');
     var dataItem = AppData.getItem(dataId);
     $.detail.title = dataItem.title;
-    $.detailLabel.text  = dataItem.description;
+    $.detailLabel.text  = 'Subject: '+dataItem.title+'\n\n\nTeacher: '+dataItem.prof+'\n\n\nDescription: '+dataItem.description;
     
     
     //
