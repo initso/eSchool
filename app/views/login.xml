@@ -1,11 +1,24 @@
 <Alloy>
-    <!-- Android -->
-    <Require src="login_form" id="loginForm" platform="android"/>
-    
-    <!-- iPhone -->
-    <Window id="login" platform="ios">
-        <NavigationGroup id="navgroup">
-            <Require src="login_form" id="loginForm"/>
-        </NavigationGroup>
-    </Window>
+	<!-- Android -->
+	<Require src="login_form" id="loginForm" platform="android"/>
+
+	<!-- iPhone -->	
+		<NavigationWindow id="navgroup" platform="ios">
+			<Require src="login_form" id="loginForm"/>
+			<!-- <Window id="loginForm" fullscreen="false">
+
+			<View id="loginView" layout="vertical">
+			<TextField id="inputUsername" />
+			<TextField id="inputPassword" passwordMask="true" />
+			<Button id="buttonLogin" onClick="actionLogin" />
+			<ActivityIndicator id="activityIndicator" />
+			</View>
+
+			</Window> -->
+		</NavigationWindow>
+	<!-- <Window id="login" platform="ios">
+	<NavigationWindow id="navgroup">
+	<Require src="login_form" id="loginForm"/>
+	</NavigationWindow>
+	</Window> -->
 </Alloy>

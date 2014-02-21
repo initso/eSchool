@@ -1,0 +1,1 @@
+/Users/harsh/Documents/Titanium_Studio_Workspace/eSchooling/Resources/iphone/alloy/sync/properties.js
