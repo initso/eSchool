@@ -17,9 +17,7 @@ function createRow(time, name, prof, i)
                     className: 'row',
                     objName: 'row',
                     height: Alloy.Globals.Styles.TableViewRow.height,
-                    // This demonstrates that custom properties can be set
-                    // Enabling you to pass whatever you want to the click event handler later
-                    someRandomVar: 'Just as an example ' + i
+
                 });
  
     // Create Table Row Columns
@@ -113,8 +111,6 @@ Ti.App.fireEvent('dataUpdated');
 // Table Clicks
 function tableClick(e) {
 	var dataId = e.rowData.dataId;
-	// Here we can pick up the custom variable set with Ti.UI.createTableViewRow
-	var someRandomVar = e.rowData.someRandomVar;
 
 	// All single clicks are just going to open the detail window for this item
 	// We pass the tab object to the child controller so if it needed to open a window it has a reference to the parent tab in which to do so

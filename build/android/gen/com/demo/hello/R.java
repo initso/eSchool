@@ -12,10 +12,11 @@ public final class R {
     }
     public static final class drawable {
         public static final int appicon=0x7f020000;
-        public static final int background=0x7f020001;
-        public static final int btn_check_buttonless_on_64=0x7f020002;
-        public static final int btn_more_64=0x7f020003;
-        public static final int disclosure_64=0x7f020004;
+        public static final int appicon_e5fbaffc57=0x7f020001;
+        public static final int background=0x7f020002;
+        public static final int btn_check_buttonless_on_64=0x7f020003;
+        public static final int btn_more_64=0x7f020004;
+        public static final int disclosure_64=0x7f020005;
     }
     public static final class id {
         public static final int titanium_ui_list_header_or_footer_title=0x7f060000;

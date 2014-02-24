@@ -7,7 +7,7 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.detail = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundImage: "images/eSchool.jpg",
         id: "detail"
     });
     $.__views.detail && $.addTopLevelView($.__views.detail);
@@ -27,7 +27,7 @@ function Controller() {
         var AppData = require("data");
         var dataItem = AppData.getItem(dataId);
         $.detail.title = dataItem.title;
-        $.detailLabel.text = dataItem.title;
+        $.detailLabel.text = "Subject: " + dataItem.title + "\n\n\nTeacher: " + dataItem.prof + "\n\n\nDescription: " + dataItem.description;
         $.detail.addEventListener("open", function() {
             if ($.detail.activity) {
                 var activity = $.detail.activity;

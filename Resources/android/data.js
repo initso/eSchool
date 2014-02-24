@@ -1,3 +1,19 @@
+function gettDay() {
+    var currentTime = new Date();
+    var daytoday = currentTime.getDay();
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+    return weekday[daytoday];
+}
+
+var Cloud = require("ti.cloud");
+
 var loggedIn = false;
 
 Ti.App.Properties.getString("loggedIn") && (loggedIn = true);
@@ -31,61 +47,25 @@ exports.logout = function(callback) {
     });
 };
 
-var dataStore = [ {
-    title: "History",
-    prof: "Hemant Sir ",
-    time: "7-7:30 am"
-}, {
-    title: "Geography",
-    prof: "Disha Madam ",
-    time: "7:30-8 am"
-}, {
-    title: "Algebra",
-    prof: "ABC ",
-    time: "8-8:30 am"
-}, {
-    title: "Geometry",
-    prof: "XYZ ",
-    time: "8:30-9 am"
-}, {
-    title: "Drawing",
-    prof: "HM Sir ",
-    time: "9-9:30 am"
-}, {
-    title: "Proxy",
-    prof: "Hemant Sir ",
-    time: "9:30-10 am"
-}, {
-    title: "Recess",
-    prof: "",
-    time: "10-11 am"
-}, {
-    title: "Civics",
-    prof: "Debra Tr.",
-    time: "11-11:30 am"
-}, {
-    title: "Economics",
-    prof: " HM Sir ",
-    time: "11:30-12 pm"
-}, {
-    title: "PT",
-    prof: " Tiwari Sir ",
-    time: "12-12:30 pm"
-}, {
-    title: "Marathi",
-    prof: " Kulkarni Tr. ",
-    time: "12:30-1 pm"
-} ];
+var today = gettDay();
 
-var dataBuilt = true;
+var dataStore = [];
 
-if (!dataBuilt) for (var i = 0; 10 > i; i++) {
-    var row = {
-        title: "History- Hemant Sir ",
-        time: "10-10:30 am"
-    };
-    dataStore.push(row);
-}
+Cloud.Objects.query({
+    classname: "cars",
+    page: 1,
+    per_page: 10,
+    where: {
+        day: {
+            $regex: today
+        }
+    }
+}, function(e) {
+    if (e.success) for (var i = 0; e.cars.length > i; i++) {
+        var timetable = e.cars[i];
+        dataStore = timetable.Timetable;
+    } else alert("Error:\n" + (e.error && e.message || JSON.stringify(e)));
+});
 
 exports.deleteItem = function(id) {
     dataStore.splice(id, 1);

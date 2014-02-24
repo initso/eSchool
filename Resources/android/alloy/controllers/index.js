@@ -6,21 +6,27 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId1 = [];
+    var __alloyId2 = [];
     $.__views.tabHome = Alloy.createController("home", {
         id: "tabHome"
     });
-    __alloyId1.push($.__views.tabHome.getViewEx({
+    __alloyId2.push($.__views.tabHome.getViewEx({
         recurse: true
     }));
     $.__views.tabList = Alloy.createController("list", {
         id: "tabList"
     });
-    __alloyId1.push($.__views.tabList.getViewEx({
+    __alloyId2.push($.__views.tabList.getViewEx({
+        recurse: true
+    }));
+    $.__views.tabEvents = Alloy.createController("events", {
+        id: "tabEvents"
+    });
+    __alloyId2.push($.__views.tabEvents.getViewEx({
         recurse: true
     }));
     $.__views.tabGroup = Ti.UI.createTabGroup({
-        tabs: __alloyId1,
+        tabs: __alloyId2,
         id: "tabGroup"
     });
     $.__views.tabGroup && $.addTopLevelView($.__views.tabGroup);
@@ -30,7 +36,7 @@ function Controller() {
     Cloud.Users.showMe(function(e) {
         if (e.success) {
             $.tabGroup.open();
-            $.tabGroup.setActiveTab(1);
+            $.tabGroup.setActiveTab(0);
             Alloy.Globals.tabGroup = $.tabGroup;
             $.tabGroup.addEventListener("open", function() {
                 if ($.tabGroup.activity) {

@@ -4,8 +4,7 @@ function Controller() {
             dataId: i,
             className: "row",
             objName: "row",
-            height: Alloy.Globals.Styles.TableViewRow.height,
-            someRandomVar: "Just as an example " + i
+            height: Alloy.Globals.Styles.TableViewRow.height
         });
         var timeView = Ti.UI.createView({
             left: 0,
@@ -43,7 +42,6 @@ function Controller() {
     }
     function tableClick(e) {
         var dataId = e.rowData.dataId;
-        e.rowData.someRandomVar;
         var detailController = Alloy.createController("detail", {
             parentTab: $.tabList,
             dataId: dataId
@@ -89,13 +87,13 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.list = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundImage: "images/eSchool.jpg",
         id: "list"
     });
-    $.__views.__alloyId2 = Ti.UI.createView({
-        id: "__alloyId2"
+    $.__views.__alloyId3 = Ti.UI.createView({
+        id: "__alloyId3"
     });
-    $.__views.list.add($.__views.__alloyId2);
+    $.__views.list.add($.__views.__alloyId3);
     $.__views.activityIndicator = Ti.UI.createActivityIndicator({
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
@@ -103,7 +101,7 @@ function Controller() {
         style: Ti.UI.ActivityIndicatorStyle.PLAIN,
         id: "activityIndicator"
     });
-    $.__views.__alloyId2.add($.__views.activityIndicator);
+    $.__views.__alloyId3.add($.__views.activityIndicator);
     $.__views.labelNoRecords = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -112,13 +110,14 @@ function Controller() {
         top: 20,
         id: "labelNoRecords"
     });
-    $.__views.__alloyId2.add($.__views.labelNoRecords);
+    $.__views.__alloyId3.add($.__views.labelNoRecords);
     $.__views.tableRecords = Ti.UI.createTableView({
         height: Ti.UI.SIZE,
         top: 0,
+        backgroundColor: "transparent",
         id: "tableRecords"
     });
-    $.__views.__alloyId2.add($.__views.tableRecords);
+    $.__views.__alloyId3.add($.__views.tableRecords);
     $.__views.tabList = Ti.UI.createTab({
         window: $.__views.list,
         id: "tabList"

@@ -38,7 +38,7 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.loginForm = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundImage: "images/eSchool.jpg",
         id: "loginForm",
         fullscreen: "false"
     });

@@ -1,12 +1,9 @@
 //
 // Frame / Typography
 //
-"Window": {
-    backgroundColor:"white"
-}
 
-".container": {
-    backgroundColor:"white"
+"Window": {
+    backgroundImage:"images/eSchool.jpg"
 }
 
 "Label": {
@@ -56,3 +53,32 @@
     visible: false,
     top: 20
 }
+
+"#labelHome":{
+	height: Ti.UI.SIZE,
+	top: 0	
+}
+
+"#tableHome":{
+	top: "10%",
+	width: "40%",
+	left: "5%",
+	scrollable: false,
+	height:Ti.UI.SIZE,
+	backgroundColor:'transparent'
+}
+
+"#tableHome2":{
+	top: "10%",
+	width: "40%",
+	left: "55%",
+	scrollable: false,
+	height:Ti.UI.SIZE,
+	backgroundColor:'transparent'
+	
+}
+
+"#tableRecords":{
+    backgroundColor:'transparent'
+}
+
