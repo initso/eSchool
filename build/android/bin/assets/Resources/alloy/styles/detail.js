@@ -1,1 +1,1 @@
-/Users/harsh/Documents/Titanium_Studio_Workspace/eSchooling/Resources/android/alloy/styles/detail.js
+/home/harsh/Titanium_Studio_Workspace/eSchool/Resources/android/alloy/styles/detail.js

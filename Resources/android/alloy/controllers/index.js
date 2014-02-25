@@ -30,7 +30,7 @@ function Controller() {
     Cloud.Users.showMe(function(e) {
         if (e.success) {
             $.tabGroup.open();
-            $.tabGroup.setActiveTab(1);
+            $.tabGroup.setActiveTab(0);
             Alloy.Globals.tabGroup = $.tabGroup;
             $.tabGroup.addEventListener("open", function() {
                 if ($.tabGroup.activity) {

@@ -2,7 +2,7 @@
 	"target": "emulator",
 	"deployType": "development",
 	"classname": "Helloworld",
-	"platformPath": "/Users/harsh/Library/Application Support/Titanium/mobilesdk/osx/3.2.0.GA/android",
+	"platformPath": "/home/harsh/.titanium/mobilesdk/linux/3.2.0.GA/android",
 	"modulesHash": "7fb655db1d51a26b74a2778ab4a02a6b",
 	"modulesManifestHash": "198126922449188f4794134597c2f117",
 	"modulesNativeHash": "d41d8cd98f00b204e9800998ecf8427e",
@@ -28,5 +28,5 @@
 	"activitiesHash": "d41d8cd98f00b204e9800998ecf8427e",
 	"servicesHash": "d41d8cd98f00b204e9800998ecf8427e",
 	"jssFilesHash": "d41d8cd98f00b204e9800998ecf8427e",
-	"jarLibHash": "85ba6b563a14c8d7648f4d6191c2055c"
+	"jarLibHash": "ab29aa92fad6ac68fc7089b74622c689"
 }
