@@ -1,0 +1,11 @@
+<Alloy>
+	<Tab id="tabEvents">
+		<Window id="events">
+			<View>
+				<ActivityIndicator id="activityIndicator" />
+				<Label id="labelEvents" />
+				<TableView id="tableEvents" />
+			</View>
+		</Window>
+	</Tab>
+</Alloy>

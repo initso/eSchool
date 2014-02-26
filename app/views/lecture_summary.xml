@@ -1,0 +1,5 @@
+<Alloy>
+	<Window id="lecture_summary">
+		<Label id="summaryLabel" />
+	</Window>
+</Alloy>

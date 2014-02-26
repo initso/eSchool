@@ -7,7 +7,7 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.detail = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundImage: "images/eSchool.jpg",
         id: "detail"
     });
     $.__views.detail && $.addTopLevelView($.__views.detail);

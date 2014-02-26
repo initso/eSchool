@@ -7,7 +7,7 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.register = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundImage: "images/eSchool.jpg",
         id: "register",
         fullscreen: "false"
     });

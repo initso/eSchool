@@ -1,1 +1,1 @@
-/home/harsh/.titanium/modules/commonjs/ti.cloud/3.2.1/ti.cloud.js
+/home/harsh/.titanium/modules/commonjs/ti.cloud/3.2.0/ti.cloud.js

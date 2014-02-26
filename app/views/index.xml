@@ -2,5 +2,6 @@
     <TabGroup id="tabGroup">
         <Require src="home" id="tabHome" />
         <Require src="list" id="tabList" />
+        <Require src="events" id="tabEvents" />
     </TabGroup>
 </Alloy>
