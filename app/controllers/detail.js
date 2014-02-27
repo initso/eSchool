@@ -18,7 +18,7 @@ if (dataId !== '') {
     var AppData = require('data');
     var dataItem = AppData.getItem(dataId);
     $.detail.title = dataItem.title;
-    $.detailLabel.text  = 'Subject: '+dataItem.title+'\n\n\nTeacher: '+dataItem.prof+'\n\n\nDescription: '+dataItem.description;
+    $.detailLabel.text  = 'Subject: '+dataItem.subject+'\n\n\nTeacher: '+dataItem.teacher+'\n\n\nDescription: '+dataItem.description;
     
     
     //
@@ -38,6 +38,7 @@ if (dataId !== '') {
                     activity.actionBar.onHomeIconItemSelected = function() {               
                         $.detail.close();
                         $.detail = null;
+                        Ti.App.fireEvent('dataUpdated');
                     };             
                 }
             }
@@ -45,6 +46,7 @@ if (dataId !== '') {
         
         // Back Button - not really necessary here - this is the default behaviour anyway?
         $.detail.addEventListener('android:back', function() {              
+            Ti.App.fireEvent('dataUpdated');
             $.detail.close();
             $.detail = null;
         });     

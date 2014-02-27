@@ -11,7 +11,8 @@ function Controller() {
         tableRow.add(iv);
         var label = Ti.UI.createLabel({
             top: "80",
-            text: title
+            text: title,
+            color: "#000"
         });
         tableRow.add(label);
         return tableRow;
@@ -28,6 +29,8 @@ function Controller() {
     function homeTableClick(e) {
         var dataId = e.rowData.dataId;
         var nextController;
+        console.log("here");
+        console.log(dataId);
         if (1 == dataId) {
             nextController = Alloy.createController("lecture_summary");
             $.tabHome.open(nextController.getView());
@@ -70,7 +73,7 @@ function Controller() {
         width: "40%",
         left: "5%",
         scrollable: false,
-        backgroundColor: "transparent",
+        backgroundColor: "#31859C",
         id: "tableHome"
     });
     $.__views.__alloyId1.add($.__views.tableHome);
@@ -80,10 +83,30 @@ function Controller() {
         width: "40%",
         left: "55%",
         scrollable: false,
-        backgroundColor: "transparent",
+        backgroundColor: "#31859C",
         id: "tableHome2"
     });
     $.__views.__alloyId1.add($.__views.tableHome2);
+    $.__views.tableHome3 = Ti.UI.createTableView({
+        height: Ti.UI.SIZE,
+        top: "40%",
+        width: "40%",
+        left: "5%",
+        scrollable: false,
+        backgroundColor: "#31859C",
+        id: "tableHome3"
+    });
+    $.__views.__alloyId1.add($.__views.tableHome3);
+    $.__views.tableHome4 = Ti.UI.createTableView({
+        height: Ti.UI.SIZE,
+        top: "40%",
+        width: "40%",
+        left: "55%",
+        scrollable: false,
+        backgroundColor: "#31859C",
+        id: "tableHome4"
+    });
+    $.__views.__alloyId1.add($.__views.tableHome4);
     $.__views.tabHome = Ti.UI.createTab({
         window: $.__views.home,
         id: "tabHome"
@@ -91,9 +114,10 @@ function Controller() {
     $.__views.tabHome && $.addTopLevelView($.__views.tabHome);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var AppData = require("data");
     $.tabHome.title = L("home", "Home");
     $.home.title = L("home", "Home");
-    $.labelHome.text = L("labelHome", "Welcome Test User!");
+    $.labelHome.text = L("labelHome", "Welcome " + AppData.userName + "!");
     Ti.App.addEventListener("homeUpdated", function() {
         if (!_.isEmpty($.tableHome.data)) {
             $.tableHome.data = [];
@@ -102,30 +126,17 @@ function Controller() {
         $.activityIndicator.show();
         var recordData = [];
         var recordData2 = [];
+        var recordData3 = [];
+        var recordData4 = [];
         recordData.push(createRow("/images/appicon.png", "Lecture Summary", 1));
-        recordData.push(createRow("/images/appicon.png", "Students Scorecard", 2));
-        recordData2.push(createRow("/images/appicon.png", "Teacher's Feedback", 3));
-        recordData2.push(createRow("/images/appicon.png", "Schools Events", 4));
+        recordData2.push(createRow("/images/appicon.png", "Students Scorecard", 2));
+        recordData3.push(createRow("/images/appicon.png", "Teacher's Feedback", 3));
+        recordData4.push(createRow("/images/appicon.png", "Schools Events", 4));
         $.tableHome.setData(recordData);
         $.tableHome2.setData(recordData2);
+        $.tableHome3.setData(recordData3);
+        $.tableHome4.setData(recordData4);
         $.tableHome.addEventListener("click", homeTableClick);
-        var table_bottom = "-1dp";
-        var tableAnimation = Ti.UI.createAnimation({
-            bottom: table_bottom,
-            duration: 100
-        });
-        tableAnimation.addEventListener("complete", function() {
-            var table_bottom = "50dp";
-            "android" === osname && (table_bottom = "0dp");
-            $.tableHome.animate({
-                bottom: table_bottom,
-                duration: 100
-            });
-            $.tableHome2.animate({
-                bottom: table_bottom,
-                duration: 100
-            });
-        });
         $.activityIndicator.hide();
     });
     Ti.App.fireEvent("homeUpdated");

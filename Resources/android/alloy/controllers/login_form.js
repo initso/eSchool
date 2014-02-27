@@ -3,6 +3,7 @@ function Controller() {
         if ($.inputUsername.value && $.inputPassword.value) {
             $.activityIndicator.show();
             $.buttonLogin.enabled = false;
+            var AppData = require("data");
             var Cloud = require("ti.cloud");
             Cloud.Users.login({
                 login: $.inputUsername.value,
@@ -11,7 +12,11 @@ function Controller() {
                 $.activityIndicator.hide();
                 $.buttonLogin.enabled = true;
                 if (e.success) {
+                    var user = e.users[0];
+                    AppData.userName = user.username;
+                    AppData.userType = user.custom_fields.type;
                     Alloy.createController("index");
+                    Ti.App.fireEvent("dataUpdated");
                     $.loginForm.close();
                     $.loginForm = null;
                 } else {
@@ -44,6 +49,10 @@ function Controller() {
     });
     $.__views.loginForm && $.addTopLevelView($.__views.loginForm);
     $.__views.loginView = Ti.UI.createView({
+        width: "80%",
+        height: "40%",
+        top: "20%",
+        backgroundColor: "#FFFFFF",
         id: "loginView",
         layout: "vertical"
     });

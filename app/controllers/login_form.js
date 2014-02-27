@@ -12,7 +12,7 @@ function actionLogin(e) {
 		$.activityIndicator.show();
 		$.buttonLogin.enabled = false;
 
-		// var AppData = require('data');
+		var AppData = require('data');
 		var Cloud = require('ti.cloud');
 
 		// Cloud.Users.create({
@@ -36,19 +36,24 @@ function actionLogin(e) {
 		}, function(e) {
 			$.activityIndicator.hide();
 			$.buttonLogin.enabled = true;
-			if (e.success) {
-				//var user = e.users[0];
-				//alert('Success:\n' + 'id: ' + user.id + '\n' + 'sessionId: ' + Cloud.sessionId + '\n' + 'first name: ' + user.first_name + '\n' + 'last name: ' + user.last_name);
+			if (e.success) {			
+				var user= e.users[0];
+				
+				//Set User name and type for future in your local Data
+				AppData.userName=user.username;
+				AppData.userType=user.custom_fields.type;
+						
 				var indexController = Alloy.createController('index');
+				
+				//TO Update the Daily schedule we fire this event.
+				Ti.App.fireEvent('dataUpdated');
 
 				if (OS_IOS) {
 					Alloy.Globals.navgroup.close();
 					Alloy.Globals.navgroup = null;
 				} else if (OS_ANDROID) {
-
 					$.loginForm.close();
 					$.loginForm = null;
-
 				}
 
 			} else {
@@ -60,7 +65,7 @@ function actionLogin(e) {
 		// AppData.login($.inputUsername.value, $.inputPassword.value, function(response) {
 		// $.activityIndicator.hide();
 		// $.buttonLogin.enabled = true;
-		//
+		
 		// if (response.result === 'ok') {
 		// var indexController = Alloy.createController('index');
 		//

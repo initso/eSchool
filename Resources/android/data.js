@@ -14,6 +14,10 @@ function gettDay() {
 
 var Cloud = require("ti.cloud");
 
+var userType = " ";
+
+var userName = " ";
+
 var loggedIn = false;
 
 Ti.App.Properties.getString("loggedIn") && (loggedIn = true);
@@ -51,21 +55,35 @@ var today = gettDay();
 
 var dataStore = [];
 
-Cloud.Objects.query({
-    classname: "cars",
-    page: 1,
-    per_page: 10,
-    where: {
-        day: {
-            $regex: today
+var teacherSchedule = [];
+
+var teachesAt = [ "IXA" ];
+
+var className = "";
+
+for (var k = 0; teachesAt.length > k; k++) {
+    className = teachesAt[k];
+    Cloud.Objects.query({
+        classname: className,
+        page: 1,
+        per_page: 10,
+        where: {
+            Day: {
+                $regex: today
+            }
         }
-    }
-}, function(e) {
-    if (e.success) for (var i = 0; e.cars.length > i; i++) {
-        var timetable = e.cars[i];
-        dataStore = timetable.Timetable;
-    } else alert("Error:\n" + (e.error && e.message || JSON.stringify(e)));
-});
+    }, function(e) {
+        if (e.success) {
+            console.log("Hello World");
+            for (var i = 0; e[className].length > i; i++) {
+                var timetable = e[className][i];
+                console.log(timetable);
+                dataStore = timetable.Timetable;
+            }
+            for (var j = 0; dataStore.length > j; j++) dataStore[j].teacher == userName && teacherSchedule.push(dataStore[j]);
+        } else alert("Error:\n" + (e.error && e.message || JSON.stringify(e)));
+    });
+}
 
 exports.deleteItem = function(id) {
     dataStore.splice(id, 1);
@@ -77,4 +95,16 @@ exports.getItem = function(id) {
 
 exports.getAll = function() {
     return dataStore;
+};
+
+exports.getTeacherSchedule = function() {
+    return teacherSchedule;
+};
+
+exports.getUserName = function() {
+    return userName;
+};
+
+exports.getUserType = function() {
+    return userType;
 };

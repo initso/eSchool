@@ -41,7 +41,7 @@ function Controller() {
             $.tabGroup.addEventListener("open", function() {
                 if ($.tabGroup.activity) {
                     var activity = $.tabGroup.activity;
-                    Ti.Platform.Android.API_LEVEL >= 11 && activity.actionBar && (activity.actionBar.title = L("appTitle", "Demo App"));
+                    Ti.Platform.Android.API_LEVEL >= 11 && activity.actionBar && (activity.actionBar.title = L("appTitle", "eSchool-Home"));
                 }
             });
             $.tabGroup.addEventListener("android:back", function() {

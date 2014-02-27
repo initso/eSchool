@@ -19,7 +19,7 @@ Cloud.Users.showMe(function(e) {
 
 					// Action Bar
 					if (Ti.Platform.Android.API_LEVEL >= 11 && activity.actionBar) {
-						activity.actionBar.title = L('appTitle', 'Demo App');
+						activity.actionBar.title = L('appTitle', 'eSchool-Home');
 					}
 				}
 			});

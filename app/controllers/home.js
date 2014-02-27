@@ -1,9 +1,10 @@
 //
 // View Language
 //
+var AppData = require('data');
 $.tabHome.title = L('home', 'Home');
 $.home.title = L('home', 'Home');
-$.labelHome.text = L('labelHome', 'Welcome Test User!');
+$.labelHome.text = L('labelHome', 'Welcome '+AppData.userName+'!');
 
 /*
  *
@@ -29,7 +30,8 @@ function createRow(image, title, i) {
 
 	var label = Ti.UI.createLabel({
 		top : "80",
-		text : title
+		text : title,
+		color: '#000'
 	});
 	tableRow.add(label);
 
@@ -56,45 +58,26 @@ Ti.App.addEventListener('homeUpdated', function(e) {
 	//Add the four icons on the Home Screen
 	var recordData = [];
 	var recordData2 = [];
+	var recordData3 = [];
+	var recordData4 = [];
 
 	// This doesn't need to be a row, it could just be an object
 	// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.TableView
 	recordData.push(createRow('/images/appicon.png', "Lecture Summary", 1));
-	recordData.push(createRow('/images/appicon.png', "Students Scorecard", 2));
-	recordData2.push(createRow('/images/appicon.png', "Teacher's Feedback", 3));
-	recordData2.push(createRow('/images/appicon.png', "Schools Events", 4));
+	recordData2.push(createRow('/images/appicon.png', "Students Scorecard", 2));
+	recordData3.push(createRow('/images/appicon.png', "Teacher's Feedback", 3));
+	recordData4.push(createRow('/images/appicon.png', "Schools Events", 4));
 	// Set the table data in one go rather than making repeated (costlier) calls on the loop
 	$.tableHome.setData(recordData);
 	$.tableHome2.setData(recordData2);
-
+	$.tableHome3.setData(recordData3);
+	$.tableHome4.setData(recordData4);
+	
 	// Handle table clicks - either single click
 	// Rather than passing the function directly as the 2nd arguement, pass a reference
 	// This allows it to be removed later: $.tableHome.removeEventListener('click', homeTableClick);
 
 	$.tableHome.addEventListener('click', homeTableClick);
-
-	//Hack to refresh tables in Android to display Images in TableView
-	//TODO: Find a better solution
-	var table_bottom = '-1dp';
-
-	var tableAnimation = Ti.UI.createAnimation({
-		bottom : table_bottom,
-		duration : 100
-	});
-	tableAnimation.addEventListener('complete', function(e) {
-		var table_bottom = '50dp';
-		if (osname === 'android') {
-			table_bottom = '0dp';
-		}
-		$.tableHome.animate({
-			bottom : table_bottom,
-			duration : 100
-		});
-		$.tableHome2.animate({
-			bottom : table_bottom,
-			duration : 100
-		});
-	});
 
 	$.activityIndicator.hide();
 
@@ -112,7 +95,6 @@ Ti.App.fireEvent('homeUpdated');
 // Action Handlers
 //
 function actionLogout() {
-	//var AppData = require('data');
 	var Cloud = require('ti.cloud');
 
 	Cloud.Users.logout(function(e) {
@@ -137,6 +119,8 @@ function actionLogout() {
 function homeTableClick(e) {
 	var dataId = e.rowData.dataId;
 	var nextController;
+	console.log("here");
+	console.log(dataId);
 	if (dataId == 1) {
 		nextController = Alloy.createController('lecture_summary');
 		$.tabHome.open(nextController.getView());

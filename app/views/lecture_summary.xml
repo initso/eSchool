@@ -1,5 +1,96 @@
 <Alloy>
-	<Window id="lecture_summary">
-		<Label id="summaryLabel" />
+	<Window class="container">
+		<View id="titleView">
+			<Label id="title">Lecture Summary</Label>
+		</View>
+		<View id="contentView">
+			<View id="calendarContainer">
+				<Label id="calendar">Today</Label>
+				<ImageView id="downArrow" />
+			</View>
+			<Label id="date">Today, January 8th</Label>
+			<Label id="count">6</Label>
+			<TableView id="table">
+				<TableViewRow>
+					<View class="tableRowBackground">
+						<View class="tableRow">
+							<View>
+								<Label class="subject">Trigonometry</Label>
+								<ImageView class="rightImage" />
+							</View>
+							<View class="lectureDetail">
+								<Label class="teacher">Bhavesh Sir -</Label>
+								<Label class="description" id="description1">xxxxxxxxxxxxxxxxxxxxxxxxx</Label>
+							</View>
+							<Label class="description" id="description2">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</Label>
+						</View>
+					</View>
+				</TableViewRow>
+				<TableViewRow>
+					<View class="tableRowBackground">
+						<View class="tableRow">
+							<View>
+								<Label class="subject">Water Cycle</Label>
+								<ImageView class="rightImage" />
+							</View>
+							<View class="lectureDetail">
+								<Label class="teacher">Falguni Mam -</Label>
+								<Label class="description" id="description1">The water cycle, also known as the hydrologic</Label>
+							</View>
+							<Label class="description" id="description2">cycle or the H2O cycle, describes the continuous movement of water on, above and below the surface of the Earth.</Label>
+						</View>
+					</View>
+				</TableViewRow>
+				<TableViewRow>
+					<View class="tableRowBackground">
+						<View class="tableRow">
+							<View>
+								<Label class="subject">Non Violence Movement</Label>
+								<ImageView class="rightImage" />
+							</View>
+							<View class="lectureDetail">
+								<Label class="teacher">Charles Sir -</Label>
+								<Label class="description" id="description1">Explained the non-violence movement</Label>
+							</View>
+							<Label class="description" id="description2">conducted by mahatma gandi, its impact and its outcome</Label>
+						</View>
+					</View>
+				</TableViewRow>
+				<TableViewRow>
+					<View class="tableRowBackground">
+						<View class="tableRow">
+							<View>
+								<Label class="subject">Weather</Label>
+								<ImageView class="rightImage" />
+							</View>
+							<View class="lectureDetail">
+								<Label class="teacher">Manisha Mam -</Label>
+								<Label class="description" id="description1">Explained weather system through out the world</Label>
+							</View>
+							<Label class="description" id="description2">Explained causes of some real world weather fluctuations. Parents needs to help them nderstand how we can cause direct impact to our environment weather conditions.</Label>
+						</View>
+					</View>
+				</TableViewRow>
+				<TableViewRow>
+					<View class="tableRowBackground">
+						<View class="tableRow">
+							<View>
+								<Label class="subject">Liner Equations</Label>
+								<ImageView class="rightImage" />
+							</View>
+							<View class="lectureDetail">
+								<Label class="teacher">Bhavesh Sir -</Label>
+								<Label class="description" id="description1">Explained basics of linear equations.</Label>
+							</View>
+							<Label class="description" id="description2">Many students were clueless about how to go about solving equations. Tommorow will make them solve Exercise 1.</Label>
+						</View>
+					</View>
+				</TableViewRow>
+			</TableView>
+		</View>
+		<View id="footerView">
+			<ImageView id="search" />
+			<ImageView id="list" />
+		</View>
 	</Window>
 </Alloy>

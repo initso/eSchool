@@ -59,26 +59,14 @@
 	top: 0	
 }
 
-"#tableHome":{
-	top: "10%",
-	width: "40%",
-	left: "5%",
-	scrollable: false,
-	height:Ti.UI.SIZE,
-	backgroundColor:'transparent'
-}
-
-"#tableHome2":{
-	top: "10%",
-	width: "40%",
-	left: "55%",
-	scrollable: false,
-	height:Ti.UI.SIZE,
-	backgroundColor:'transparent'
-	
-}
 
 "#tableRecords":{
     backgroundColor:'transparent'
 }
 
+"#loginView": {
+	width: '80%',
+	height: '40%',
+	top: '20%',
+	backgroundColor: "#FFFFFF"
+}

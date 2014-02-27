@@ -4,48 +4,66 @@
 $.tabList.title = L('list', 'Schedule');
 $.list.title = L('list', 'Schedule');
 
-
-
 //ADD Data to The Table- Schedule
 
 // Function To Generate Table Row
-function createRow(time, name, prof, i)
-{
-    // Create Table Row
-    var tableRow = Ti.UI.createTableViewRow({
-                    dataId: i,                             
-                    className: 'row',
-                    objName: 'row',
-                    height: Alloy.Globals.Styles.TableViewRow.height,
+function createRow(time, name, prof, i) {
+	// Create Table Row
+	var tableRow = Ti.UI.createTableViewRow({
+		dataId : i,
+		className : 'row',
+		objName : 'row',
+		height : Alloy.Globals.Styles.TableViewRow.height,
 
-                });
- 
-    // Create Table Row Columns
-    var timeView   = Ti.UI.createView({ left : 0,     width : "40%", height: Ti.UI.Size    });
-    var nameView  = Ti.UI.createView({ left : "40%", width : "60%", height: Ti.UI.Size    });
-    var profView   = Ti.UI.createView({ left : "75%", width : "25%", height: Ti.UI.Size  });
- 
-    // Create Table Row Column Labels
-    timeView.add(Ti.UI.createLabel({   top: 5, right: 5, bottom: 5, left: 5, text: time   }));
-    nameView.add(Ti.UI.createLabel({  top: 5, right: 5, bottom: 5, left: 5, text: name   }));
-    //profView.add(Ti.UI.createLabel({   top: 5, right: 5, bottom: 5, left: 5, text: prof  }));
- 
-    // Add Columns To Table Row
-    tableRow.add(timeView);
-    tableRow.add(nameView);
-    //tableRow.add(profView);
- 
-    // Resource Clean-Up
-    timeView = nameView = profView = null;
- 
-    // Finished
-    return tableRow;
+	});
+	console.log(i);
+	// Create Table Row Columns
+	var timeView = Ti.UI.createView({
+		left : 0,
+		width : "40%",
+		height : Ti.UI.Size
+	});
+	var nameView = Ti.UI.createView({
+		left : "40%",
+		width : "60%",
+		height : Ti.UI.Size
+	});
+	var profView = Ti.UI.createView({
+		left : "75%",
+		width : "25%",
+		height : Ti.UI.Size
+	});
+
+	// Create Table Row Column Labels
+	timeView.add(Ti.UI.createLabel({
+		top : 5,
+		right : 5,
+		bottom : 5,
+		left : 5,
+		text : time,
+		color : '#000'
+	}));
+	nameView.add(Ti.UI.createLabel({
+		top : 5,
+		right : 5,
+		bottom : 5,
+		left : 5,
+		text : name,
+		color : '#000'
+	}));
+	//profView.add(Ti.UI.createLabel({   top: 5, right: 5, bottom: 5, left: 5, text: prof  }));
+
+	// Add Columns To Table Row
+	tableRow.add(timeView);
+	tableRow.add(nameView);
+	//tableRow.add(profView);
+
+	// Resource Clean-Up
+	timeView = nameView = profView = null;
+
+	// Finished
+	return tableRow;
 }
-
-
-
-
-
 
 //
 // Present our data - wrap it in an event handler which we can trigger when we manipulate our data store
@@ -62,47 +80,50 @@ Ti.App.addEventListener('dataUpdated', function(e) {
 
 	// Set loading state
 	$.activityIndicator.show();
-	$.labelNoRecords.visible = false; 
+	$.labelNoRecords.visible = false;
 
-	// Wrap the following in setTimeout purely to show activityIndicator (simulate network activity)
-	setTimeout(function() {
+	$.activityIndicator.hide();
 
-		$.activityIndicator.hide();
+	// Require our data store - we are not creating a fresh instance each call
+	// Access to the data module we are requiring works like a singleton (create new, or reuse if exists)
+	var AppData = require('data');
 
-		// Require our data store - we are not creating a fresh instance each call
-		// Access to the data module we are requiring works like a singleton (create new, or reuse if exists)
-		var AppData = require('data');
+	console.log(AppData.userType);
+
+	if (AppData.userType == "Student") {
 		var dataStore = AppData.getAll();
+	} else if (AppData.userType == " Teacher") {
+		var dataStore = AppData.getTeacherSchedule();
+	}
 
-		// Either set the state for no records, or loop and add each item as a TableViewRow
-		if (!dataStore.length) {
-			$.labelNoRecords.text = L('noRecordsFound', 'No Records Found');
-			$.labelNoRecords.visible = true;
-		} else {
-			var recordData = [];
+	// Either set the state for no records, or loop and add each item as a TableViewRow
+	if (!dataStore.length) {
+		$.labelNoRecords.text = L('noRecordsFound', 'No Records Found');
+		$.labelNoRecords.visible = true;
+	} else {
+		var recordData = [];
 
-			for (var i = 0; i < dataStore.length; i++) {
-				var record = dataStore[i];
+		for (var i = 0; i < dataStore.length; i++) {
+			var record = dataStore[i];
 
-				// This doesn't need to be a row, it could just be an object
-				// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.TableView
-				recordData.push(createRow(record.time,record.title, record.prof,i));
-			}
-			// Set the table data in one go rather than making repeated (costlier) calls on the loop
-			$.tableRecords.setData(recordData);
+			// This doesn't need to be a row, it could just be an object
+			// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.TableView
+			recordData.push(createRow(record.time, record.subject, record.teacher, i));
 		}
+		// Set the table data in one go rather than making repeated (costlier) calls on the loop
+		$.tableRecords.setData(recordData);
+	}
 
-		// Handle table clicks - either single click or longpress (holding button down then releasing)
-		// Rather than passing the function directly as the 2nd arguement, pass a reference
-		// This allows it to be removed later: $.tableRecords.removeEventListener('click', tableClick);
-		$.tableRecords.addEventListener('click', tableClick);
-		$.tableRecords.addEventListener('longpress', tableLongPress);
+	// Handle table clicks - either single click or longpress (holding button down then releasing)
+	// Rather than passing the function directly as the 2nd arguement, pass a reference
+	// This allows it to be removed later: $.tableRecords.removeEventListener('click', tableClick);
+	$.tableRecords.addEventListener('click', tableClick);
+	$.tableRecords.addEventListener('longpress', tableLongPress);
 
-	}, 2000);
 });
 
 // Manually call dataUpdated once to perform the initial table rendering (subsequently called after data edited)
-Ti.App.fireEvent('dataUpdated');
+//Ti.App.fireEvent('dataUpdated');
 
 //
 // Action Handlers
@@ -112,6 +133,7 @@ Ti.App.fireEvent('dataUpdated');
 function tableClick(e) {
 	var dataId = e.rowData.dataId;
 
+	console.log(dataId);
 	// All single clicks are just going to open the detail window for this item
 	// We pass the tab object to the child controller so if it needed to open a window it has a reference to the parent tab in which to do so
 	// Rather than passing $.tabList as a controller arg, we could set: Alloy.Globals.tabList = $.tabList; outside of this function
@@ -203,7 +225,7 @@ if (OS_ANDROID) {
 
 			// Action Bar
 			if (Alloy.Globals.Android.Api >= 11 && activity.actionBar) {
-				activity.actionBar.title = L('list', 'List');
+				activity.actionBar.title = L('list', 'Todays Schedule');
 			}
 		}
 	});

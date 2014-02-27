@@ -1,3 +1,41 @@
 "#tabHome[platform=ios formFactor=handheld]": {
     icon: 'images/53-house.png'
 }
+
+"#tableHome":{
+	top: "10%",
+	width: "40%",
+	left: "5%",
+	scrollable: false,
+	height:Ti.UI.SIZE,
+	backgroundColor:'#31859C'
+}
+
+"#tableHome2":{
+	top: "10%",
+	width: "40%",
+	left: "55%",
+	scrollable: false,
+	height:Ti.UI.SIZE,
+	backgroundColor:'#31859C'
+	
+}
+
+"#tableHome3":{
+	top: "40%",
+	width: "40%",
+	left: "5%",
+	scrollable: false,
+	height:Ti.UI.SIZE,
+	backgroundColor:'#31859C'
+}
+
+"#tableHome4":{
+	top: "40%",
+	width: "40%",
+	left: "55%",
+	scrollable: false,
+	height:Ti.UI.SIZE,
+	backgroundColor:'#31859C'
+	
+}
