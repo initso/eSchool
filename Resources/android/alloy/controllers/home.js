@@ -21,6 +21,7 @@ function Controller() {
         var Cloud = require("ti.cloud");
         Cloud.Users.logout(function(e) {
             if (e.success) {
+                AppData.userName = " ";
                 var activity = Ti.Android.currentActivity;
                 activity.finish();
             } else alert("Error:\n" + (e.error && e.message || JSON.stringify(e)));

@@ -1,3 +1,14 @@
+function dateStampGen() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    10 > dd && (dd = "0" + dd);
+    10 > mm && (mm = "0" + mm);
+    today = yyyy + "-" + mm + "-" + dd + "T00:00:00+0000";
+    return today;
+}
+
 function gettDay() {
     var currentTime = new Date();
     var daytoday = currentTime.getDay();
@@ -61,29 +72,40 @@ var teachesAt = [ "IXA" ];
 
 var className = "";
 
-for (var k = 0; teachesAt.length > k; k++) {
-    className = teachesAt[k];
-    Cloud.Objects.query({
-        classname: className,
-        page: 1,
-        per_page: 10,
-        where: {
-            Day: {
-                $regex: today
+exports.Schedule = function(user, type, teachesAt) {
+    for (var k = 0; teachesAt.length > k; k++) {
+        className = teachesAt[k];
+        Cloud.Objects.query({
+            classname: className,
+            page: 1,
+            per_page: 10,
+            where: {
+                Day: {
+                    $regex: today
+                }
             }
-        }
-    }, function(e) {
-        if (e.success) {
-            console.log("Hello World");
-            for (var i = 0; e[className].length > i; i++) {
-                var timetable = e[className][i];
-                console.log(timetable);
-                dataStore = timetable.Timetable;
-            }
-            for (var j = 0; dataStore.length > j; j++) dataStore[j].teacher == userName && teacherSchedule.push(dataStore[j]);
-        } else alert("Error:\n" + (e.error && e.message || JSON.stringify(e)));
-    });
-}
+        }, function(e) {
+            if (e.success) {
+                console.log("Hello World");
+                for (var i = 0; e[className].length > i; i++) {
+                    var timetable = e[className][i];
+                    console.log(timetable);
+                    dataStore = timetable.Timetable;
+                }
+                for (var j = 0; dataStore.length > j; j++) {
+                    console.log(dataStore[j].teacher);
+                    console.log(user);
+                    if (dataStore[j].teacher == user) {
+                        console.log("good");
+                        teacherSchedule.push(dataStore[j]);
+                    }
+                }
+            } else alert("Error:\n" + (e.error && e.message || JSON.stringify(e)));
+        });
+    }
+    console.log("this is it:  " + dataStore);
+    return dataStore;
+};
 
 exports.deleteItem = function(id) {
     dataStore.splice(id, 1);
@@ -94,6 +116,7 @@ exports.getItem = function(id) {
 };
 
 exports.getAll = function() {
+    console.log("reTurning:" + dataStore);
     return dataStore;
 };
 

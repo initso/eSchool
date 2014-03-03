@@ -4,13 +4,130 @@
 var args = arguments[0] || {};
 var parentTab = args.parentTab || '';
 
+//Table Generator
+function createRow(i) {
+	// Create Table Row
+
+	var tableRow = Ti.UI.createTableViewRow({
+		dataId : i,
+		className : 'row',
+		objName : 'row',
+		height : Alloy.Globals.Styles.TableViewRow.height,
+	});
+    var tabBackRow = Ti.UI.createView();
+	
+	var tabRow = Ti.UI.createView({
+		classes : 'tableRow'
+	});
+	var view1 = Ti.UI.createView();
+
+    var style = $.createStyle({
+        classes: 'subject'
+    });
+
+	var subjectLabel = Ti.UI.createLabel({
+		text : "Trigonometry",
+		classes : 'subject'
+	});
+	
+	subjectLabel.applyProperties(style);
+
+    var style1 = $.createStyle({
+        classes: 'rightImage'
+    });
+
+	var rightImage = Ti.UI.createImageView();
+	rightImage.applyProperties(style1);
+	
+	view1.add(subjectLabel);
+	view1.add(rightImage);
+	
+    var stylelecture = $.createStyle({
+        classes: 'lectureDetail'
+    });
+    
+	var lectureDetail = Ti.UI.createView();
+	lectureDetail.applyProperties(stylelecture);
+	
+    var style2 = $.createStyle({
+        classes: 'teacher'
+    });
+    
+	var teacherLabel = Ti.UI.createLabel({
+		text : "Bhavesh Sir"
+	});
+	teacherLabel.applyProperties(style2);
+	
+	var style3 = $.createStyle({
+        classes: 'description',
+        id: 'description1'
+    });
+    
+	var description1Label = Ti.UI.createLabel({
+		text : "xxxxxxxxxxxxxxxxx"
+	});
+	description1Label.applyProperties(style3);
+	
+	lectureDetail.add(teacherLabel);
+	lectureDetail.add(description1Label);
+	
+	var style4 = $.createStyle({
+        classes: 'description',
+        id: 'description2'
+    });
+
+	var description2Label = Ti.UI.createLabel({
+		text : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	});
+
+	description2Label.applyProperties(style4);
+	
+	tabRow.add(view1);
+	tabRow.add(lectureDetail);
+	tabRow.add(description2Label);
+	tabBackRow.add(tabRow);
+	tableRow.add(tabBackRow);
+
+	console.log(i);
+	// Resource Clean-Up
+	
+	// Finished
+	return tableRow;
+}
+
+Ti.App.addEventListener('summaryUpdated', function(e) {
+	// Reset table if there are any existing rows (Alloy includes underscore)
+	if (! _.isEmpty($.table.data)) {
+		$.table.data = [];
+		// $.table.removeEventListener('click', tableClick);
+		// $.table.removeEventListener('longpress', tableLongPress);
+	}
+	var AppData = require('data');
+	var recordData = [];
+	// This doesn't need to be a row, it could just be an object
+	// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.TableView
+	recordData.push(createRow(1));
+	console.log(recordData);
+	recordData.push(createRow(2));
+	console.log(recordData);
+	recordData.push(createRow(3));
+	// Set the table data in one go rather than making repeated (costlier) calls on the loop
+	$.table.setData(recordData);
+	// Handle table clicks - either single click or longpress (holding button down then releasing)
+	// Rather than passing the function directly as the 2nd arguement, pass a reference
+	// This allows it to be removed later: $.tableRecords.removeEventListener('click', tableClick);
+	// $.tabe.addEventListener('click', tableClick);
+	// $.tableRecords.addEventListener('longpress', tableLongPress);
+});
+
+Ti.App.fireEvent('summaryUpdated');
 
 // Android
 if (OS_ANDROID) {
 	$.lecture_summary.addEventListener('open', function() {
+
 		if ($.lecture_summary.activity) {
 			var activity = $.lecture_summary.activity;
-
 			// Action Bar
 			if (Ti.Platform.Android.API_LEVEL >= 11 && activity.actionBar) {
 				activity.actionBar.title = L('lecture_summary', 'Lecture Summary');

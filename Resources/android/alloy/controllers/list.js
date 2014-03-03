@@ -71,7 +71,6 @@ function Controller() {
                 });
                 $.tabList.open(detailController.getView());
             } else if ("" !== dataId && 1 === index) {
-                var AppData = require("data");
                 AppData.deleteItem(dataId);
                 Ti.App.fireEvent("dataUpdated");
             }
@@ -94,10 +93,10 @@ function Controller() {
         backgroundImage: "images/eSchool.jpg",
         id: "list"
     });
-    $.__views.__alloyId44 = Ti.UI.createView({
-        id: "__alloyId44"
+    $.__views.__alloyId3 = Ti.UI.createView({
+        id: "__alloyId3"
     });
-    $.__views.list.add($.__views.__alloyId44);
+    $.__views.list.add($.__views.__alloyId3);
     $.__views.activityIndicator = Ti.UI.createActivityIndicator({
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
@@ -105,7 +104,7 @@ function Controller() {
         style: Ti.UI.ActivityIndicatorStyle.PLAIN,
         id: "activityIndicator"
     });
-    $.__views.__alloyId44.add($.__views.activityIndicator);
+    $.__views.__alloyId3.add($.__views.activityIndicator);
     $.__views.labelNoRecords = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -114,14 +113,14 @@ function Controller() {
         top: 20,
         id: "labelNoRecords"
     });
-    $.__views.__alloyId44.add($.__views.labelNoRecords);
+    $.__views.__alloyId3.add($.__views.labelNoRecords);
     $.__views.tableRecords = Ti.UI.createTableView({
         height: Ti.UI.SIZE,
         top: 0,
         backgroundColor: "transparent",
         id: "tableRecords"
     });
-    $.__views.__alloyId44.add($.__views.tableRecords);
+    $.__views.__alloyId3.add($.__views.tableRecords);
     $.__views.tabList = Ti.UI.createTab({
         window: $.__views.list,
         id: "tabList"
@@ -131,6 +130,7 @@ function Controller() {
     _.extend($, $.__views);
     $.tabList.title = L("list", "Schedule");
     $.list.title = L("list", "Schedule");
+    var AppData = require("data");
     Ti.App.addEventListener("dataUpdated", function() {
         if (!_.isEmpty($.tableRecords.data)) {
             $.tableRecords.data = [];
@@ -142,7 +142,8 @@ function Controller() {
         $.activityIndicator.hide();
         var AppData = require("data");
         console.log(AppData.userType);
-        if ("Student" == AppData.userType) var dataStore = AppData.getAll(); else if (" Teacher" == AppData.userType) var dataStore = AppData.getTeacherSchedule();
+        var dataStore = AppData.Schedule(AppData.userName, AppData.userType, [ "IXA" ]);
+        "Student" == AppData.userType ? console.log("its in") : " Teacher" == AppData.userType;
         if (dataStore.length) {
             var recordData = [];
             for (var i = 0; dataStore.length > i; i++) {
@@ -157,6 +158,7 @@ function Controller() {
         $.tableRecords.addEventListener("click", tableClick);
         $.tableRecords.addEventListener("longpress", tableLongPress);
     });
+    $.activityIndicator.hide();
     $.list.addEventListener("focus", function() {
         if (Alloy.Globals.tabGroup.activity) {
             var activity = Alloy.Globals.tabGroup.activity;

@@ -99,6 +99,7 @@ function actionLogout() {
 
 	Cloud.Users.logout(function(e) {
 		if (e.success) {
+			AppData.userName=' ';
 			// Android close app, iOS open login controller
 			if (OS_ANDROID) {
 				var activity = Ti.Android.currentActivity;

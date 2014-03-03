@@ -3,6 +3,7 @@
 //
 $.tabList.title = L('list', 'Schedule');
 $.list.title = L('list', 'Schedule');
+var AppData = require('data');
 
 //ADD Data to The Table- Schedule
 
@@ -90,10 +91,13 @@ Ti.App.addEventListener('dataUpdated', function(e) {
 
 	console.log(AppData.userType);
 
+	var dataStore= AppData.Schedule(AppData.userName, AppData.userType, ["IXA"]);
+	
 	if (AppData.userType == "Student") {
-		var dataStore = AppData.getAll();
+		console.log("its in");
+//		var dataStore = AppData.getAll();
 	} else if (AppData.userType == " Teacher") {
-		var dataStore = AppData.getTeacherSchedule();
+		// var dataStore = AppData.getTeacherSchedule();
 	}
 
 	// Either set the state for no records, or loop and add each item as a TableViewRow
@@ -125,6 +129,7 @@ Ti.App.addEventListener('dataUpdated', function(e) {
 // Manually call dataUpdated once to perform the initial table rendering (subsequently called after data edited)
 //Ti.App.fireEvent('dataUpdated');
 
+$.activityIndicator.hide();
 //
 // Action Handlers
 //
@@ -174,7 +179,7 @@ function tableLongPress(e) {
 		} else if (dataId !== '' && index === 1) {
 			// Delete option selected
 			// Checking for !== '' specifically as dataId in this case could be 0 - array key 1st position
-			var AppData = require('data');
+			
 			AppData.deleteItem(dataId);
 			Ti.App.fireEvent('dataUpdated');
 		}
