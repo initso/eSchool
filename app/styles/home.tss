@@ -22,7 +22,7 @@
 }
 
 "#tableHome3":{
-	top: "40%",
+	top: "60%",
 	width: "40%",
 	left: "5%",
 	scrollable: false,
@@ -31,7 +31,7 @@
 }
 
 "#tableHome4":{
-	top: "40%",
+	top: "60%",
 	width: "40%",
 	left: "55%",
 	scrollable: false,

@@ -1,6 +1,7 @@
 //
 // Action handlers
 //
+
 function actionLogin(e) {
 	if (!$.inputUsername.value || !$.inputPassword.value) {
 		var dialog = Ti.UI.createAlertDialog({
@@ -36,18 +37,12 @@ function actionLogin(e) {
 		}, function(e) {
 			$.activityIndicator.hide();
 			$.buttonLogin.enabled = true;
-			if (e.success) {			
-				var user= e.users[0];
-				
+			if (e.success) {
+				var user = e.users[0];
 				//Set User name and type for future in your local Data
-				AppData.userName=user.username;
-				AppData.userType=user.custom_fields.type;
-						
-				var indexController = Alloy.createController('index');
-				
-				//TO Update the Daily schedule we fire this event.
-				Ti.App.fireEvent('dataUpdated');
-
+				AppData.userName = user.username;
+				AppData.userType = user.custom_fields.type;
+				var indexController = Alloy.createController('index');				
 				if (OS_IOS) {
 					Alloy.Globals.navgroup.close();
 					Alloy.Globals.navgroup = null;
@@ -55,7 +50,6 @@ function actionLogin(e) {
 					$.loginForm.close();
 					$.loginForm = null;
 				}
-
 			} else {
 				$.inputPassword.value = '';
 				alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
@@ -65,7 +59,7 @@ function actionLogin(e) {
 		// AppData.login($.inputUsername.value, $.inputPassword.value, function(response) {
 		// $.activityIndicator.hide();
 		// $.buttonLogin.enabled = true;
-		
+
 		// if (response.result === 'ok') {
 		// var indexController = Alloy.createController('index');
 		//

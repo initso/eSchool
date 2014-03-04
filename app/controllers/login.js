@@ -6,4 +6,3 @@ if (OS_IOS) {
 } else {
     alert(L('unsupportedPlatform', 'Unsupported Platform'));
 }
-

@@ -5,7 +5,7 @@ var args = arguments[0] || {};
 var parentTab = args.parentTab || '';
 
 //Table Generator
-function createRow(i) {
+function createRow(subject, teacher, description, alerts, i) {
 	// Create Table Row
 
 	var tableRow = Ti.UI.createTableViewRow({
@@ -14,83 +14,87 @@ function createRow(i) {
 		objName : 'row',
 		height : Alloy.Globals.Styles.TableViewRow.height,
 	});
-    var tabBackRow = Ti.UI.createView();
-	
+	var tabBackRow = Ti.UI.createView();
+
 	var tabRow = Ti.UI.createView({
 		classes : 'tableRow'
 	});
 	var view1 = Ti.UI.createView();
 
-    var style = $.createStyle({
-        classes: 'subject'
-    });
-
-	var subjectLabel = Ti.UI.createLabel({
-		text : "Trigonometry",
+	var style = $.createStyle({
 		classes : 'subject'
 	});
-	
+
+	var subjectLabel = Ti.UI.createLabel({
+		text : subject,
+		classes : 'subject'
+	});
+
 	subjectLabel.applyProperties(style);
 
-    var style1 = $.createStyle({
-        classes: 'rightImage'
-    });
-
-	var rightImage = Ti.UI.createImageView();
-	rightImage.applyProperties(style1);
-	
 	view1.add(subjectLabel);
-	view1.add(rightImage);
-	
-    var stylelecture = $.createStyle({
-        classes: 'lectureDetail'
-    });
-    
+
+	if (alerts) {
+		var style1 = $.createStyle({
+			classes : 'rightImage'
+		});
+
+		var rightImage = Ti.UI.createImageView();
+		rightImage.applyProperties(style1);
+
+		view1.add(rightImage);
+	}
+
+	var stylelecture = $.createStyle({
+		classes : 'lectureDetail'
+	});
+
 	var lectureDetail = Ti.UI.createView();
 	lectureDetail.applyProperties(stylelecture);
-	
-    var style2 = $.createStyle({
-        classes: 'teacher'
-    });
-    
+
+	var style2 = $.createStyle({
+		classes : 'teacher'
+	});
+
 	var teacherLabel = Ti.UI.createLabel({
-		text : "Bhavesh Sir"
+		text : teacher
 	});
 	teacherLabel.applyProperties(style2);
-	
-	var style3 = $.createStyle({
-        classes: 'description',
-        id: 'description1'
-    });
-    
-	var description1Label = Ti.UI.createLabel({
-		text : "xxxxxxxxxxxxxxxxx"
+
+	var style4 = $.createStyle({
+		classes : 'description',
+		id : 'description1'
 	});
-	description1Label.applyProperties(style3);
-	
+
+	var description1Label = Ti.UI.createLabel({
+		text : description
+	});
+	description1Label.applyProperties(style4);
+
 	lectureDetail.add(teacherLabel);
 	lectureDetail.add(description1Label);
-	
-	var style4 = $.createStyle({
-        classes: 'description',
-        id: 'description2'
-    });
 
-	var description2Label = Ti.UI.createLabel({
-		text : "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	var style5 = $.createStyle({
+		classes : 'description',
+		id : 'description2'
 	});
 
-	description2Label.applyProperties(style4);
-	
+	var description2Label = Ti.UI.createLabel({
+		text : "cycle or the H2O cycle, describes the continuous movement of water on, above and below the surface of the Earth."
+	});
+
+	description2Label.applyProperties(style5);
+
 	tabRow.add(view1);
 	tabRow.add(lectureDetail);
 	tabRow.add(description2Label);
+
 	tabBackRow.add(tabRow);
 	tableRow.add(tabBackRow);
 
 	console.log(i);
 	// Resource Clean-Up
-	
+
 	// Finished
 	return tableRow;
 }
@@ -106,11 +110,11 @@ Ti.App.addEventListener('summaryUpdated', function(e) {
 	var recordData = [];
 	// This doesn't need to be a row, it could just be an object
 	// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.TableView
-	recordData.push(createRow(1));
+	recordData.push(createRow("Trigonometry", "Bhavesh Sir","The water cycle, also known as the hydrologic ", true, 1));
 	console.log(recordData);
-	recordData.push(createRow(2));
+	recordData.push(createRow("Trigonometry", "Bhavesh Sir","The water cycle, also known as the hydrologic ", false, 2));
 	console.log(recordData);
-	recordData.push(createRow(3));
+	recordData.push(createRow("Trigonometry", "Bhavesh Sir","The water cycle, also known as the hydrologic ", true,3));
 	// Set the table data in one go rather than making repeated (costlier) calls on the loop
 	$.table.setData(recordData);
 	// Handle table clicks - either single click or longpress (holding button down then releasing)

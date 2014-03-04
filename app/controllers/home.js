@@ -51,7 +51,7 @@ Ti.App.addEventListener('homeUpdated', function(e) {
 		$.tableHome.removeEventListener('click', homeTableClick);
 		//$.tableHome.removeEventListener('longpress', homeTableLongPress);
 	}
-
+	console.log("home instances");
 	// Set loading state
 	$.activityIndicator.show();
 
@@ -83,8 +83,9 @@ Ti.App.addEventListener('homeUpdated', function(e) {
 
 });
 
-// Manually call dataUpdated once to perform the initial table rendering (subsequently called after data edited)
+// Manually call homeUpdated and dataUpdated once to perform the initial table rendering (subsequently called after data edited)
 Ti.App.fireEvent('homeUpdated');
+//Ti.App.fireEvent('dataUpdated');
 
 /*
 * Data Updated
@@ -110,6 +111,7 @@ function actionLogout() {
 				Alloy.Globals.tabGroup.close();
 				Alloy.Globals.tabGroup = null;
 			}
+			$.destroy();
 		} else {
 			alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 		}

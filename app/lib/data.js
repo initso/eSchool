@@ -93,9 +93,10 @@ var className = '';
 //TODO: Build this Datastore from the cloud
 
 //GET todays Schedule normal for Teachers
-exports.Schedule = function(user, type, teachesAt) {
+function Schedule(user, type, teachesAt, callback) {
 	for (var k = 0; k < teachesAt.length; k++) {
 		className = teachesAt[k];
+		console.log(className);
 		Cloud.Objects.query({
 			classname : className,
 			page : 1,
@@ -109,28 +110,25 @@ exports.Schedule = function(user, type, teachesAt) {
 			if (e.success) {
 				console.log("Hello World");
 				for (var i = 0; i < e[className].length; i++) {
-					//console.log(i);
 					var timetable = e[className][i];
 					console.log(timetable);
 					dataStore = timetable.Timetable;
 
 				}
 				for (var j = 0; j < dataStore.length; j++) {
-					console.log(dataStore[j].teacher);
-					console.log(user);
 					if (dataStore[j].teacher == user) {
-						console.log("good");
+						console.log("GOOD");
 						teacherSchedule.push(dataStore[j]);
 					}
 				}
+				console.log("In loop:" + dataStore);
+				callback();
 			} else {
 				alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
 			}
 		});
 	}
-	console.log("this is it:  " + dataStore);
-	return dataStore;
-};
+}
 
 // Delete
 exports.deleteItem = function(id) {
@@ -143,20 +141,35 @@ exports.getItem = function(id) {
 };
 
 // GetAll
-exports.getAll = function() {
-	console.log("reTurning:" + dataStore);
-	return dataStore;
+
+exports.getAll = function(callback) {
+	console.log(this.userName);
+	if (this.userType == "Student") {
+		Schedule(this.userName, this.userType, ["IXA"], function() {
+			console.log("reTurning:" + dataStore);
+			callback(dataStore);
+		});
+	}else if(this.userType=="teacher"){
+		Schedule(this.userName, this.userType, ["IXA"], function() {
+			console.log("reTurning:" + teacherSchedule);
+			callback(teacherSchedule);
+		});
+	}
 };
 
 //Get Teacher Schedule
 exports.getTeacherSchedule = function() {
-	return teacherSchedule;
+	console.log(this.userName);
+	Schedule(this.userName, this.userType, ["IXA"], function() {
+		console.log("reTurning:" + teacherSchedule);
+		return teacherSchedule;
+	});
 };
 
 exports.getUserName = function() {
-	return userName
+	return userName;
 };
 
 exports.getUserType = function() {
-	return userType
+	return userType;
 };
