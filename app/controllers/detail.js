@@ -18,7 +18,7 @@ function createForm(subject, teacher, description, homework){
 	  $.teacher.text= "Teacher: "+teacher;
 	  $.description.value="Enter your description here";
 	  $.homework.value=homework;
-	  if(AppData.userType=="Student"){
+	  if(AppData.userType=="teacher"){
 	  	$.description.editable = false;
 	  }
 }
@@ -31,9 +31,7 @@ if (dataId !== '') {
     
     var dataItem = AppData.getItem(dataId);
     $.detail.title = dataItem.title;
-    createForm(dataItem.subject, dataItem.teacher, "Enter your description here", false);
-  
-    
+    createForm(dataItem.subject, dataItem.teacher, "Enter your description here", false);    
     
     //
     // Navigation

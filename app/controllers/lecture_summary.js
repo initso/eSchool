@@ -107,21 +107,21 @@ Ti.App.addEventListener('summaryUpdated', function(e) {
 		// $.table.removeEventListener('longpress', tableLongPress);
 	}
 	var AppData = require('data');
-	var recordData = [];
-	// This doesn't need to be a row, it could just be an object
-	// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.TableView
-	recordData.push(createRow("Trigonometry", "Bhavesh Sir","The water cycle, also known as the hydrologic ", true, 1));
-	console.log(recordData);
-	recordData.push(createRow("Trigonometry", "Bhavesh Sir","The water cycle, also known as the hydrologic ", false, 2));
-	console.log(recordData);
-	recordData.push(createRow("Trigonometry", "Bhavesh Sir","The water cycle, also known as the hydrologic ", true,3));
-	// Set the table data in one go rather than making repeated (costlier) calls on the loop
-	$.table.setData(recordData);
-	// Handle table clicks - either single click or longpress (holding button down then releasing)
-	// Rather than passing the function directly as the 2nd arguement, pass a reference
-	// This allows it to be removed later: $.tableRecords.removeEventListener('click', tableClick);
-	// $.tabe.addEventListener('click', tableClick);
-	// $.tableRecords.addEventListener('longpress', tableLongPress);
+	AppData.getSummary(function(dataStore) {
+
+		var recordData = [];
+		for (var i = 0; i < dataStore.length; i++) {
+			var record = dataStore[i];
+			console.log(dataStore[i]);
+			// This doesn't need to be a row, it could just be an object
+			// http://docs.appcelerator.com/titanium/latest/#!/api/Titanium.UI.TableView
+			recordData.push(createRow(record.title, record.teacher, record.description, record.homework, i));
+		}
+		// Set the table data in one go rather than making repeated (costlier) calls on the loop
+		$.table.setData([]);
+		$.table.setData(recordData);
+
+	});
 });
 
 Ti.App.fireEvent('summaryUpdated');

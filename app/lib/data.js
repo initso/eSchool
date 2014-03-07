@@ -87,7 +87,9 @@ exports.logout = function(callback) {
 //
 var today = gettDay();
 var dataStore = [];
+var dateStamp = dateStampGen();
 var teacherSchedule = [];
+var summary = [];
 var teachesAt = ["IXA"];
 var className = '';
 //TODO: Build this Datastore from the cloud
@@ -130,6 +132,35 @@ function Schedule(user, type, teachesAt, callback) {
 	}
 }
 
+//GET Lecture Summary
+function lectSummary(teachesAt, callback) {
+	className = teachesAt + "pastLectures";
+	console.log(className);
+	Cloud.Objects.query({
+		classname : className,
+		page : 1,
+		per_page : 10,
+		where : {
+			"DateStamp" : dateStamp
+		}
+	}, function(e) {
+		if (e.success) {
+			console.log("Hello World");
+			for (var i = 0; i < e[className].length; i++) {
+				var timetable = e[className][i];
+				console.log(timetable);
+				summary = timetable.lecSummary;
+
+			}
+
+			console.log("In loop:" + summary);
+			callback();
+		} else {
+			alert('Error:\n' + ((e.error && e.message) || JSON.stringify(e)));
+		}
+	});
+}
+
 // Delete
 exports.deleteItem = function(id) {
 	dataStore.splice(id, 1);
@@ -140,8 +171,16 @@ exports.getItem = function(id) {
 	return dataStore[id];
 };
 
-// GetAll
 
+//Get Summary of Lectures for a day
+exports.getSummary = function(callback) {
+	lectSummary("IXA", function() {
+		console.log("reTurning:" + summary);
+		callback(summary);
+	});
+};
+
+// GetAll
 exports.getAll = function(callback) {
 	console.log(this.userName);
 	if (this.userType == "Student") {
@@ -149,7 +188,7 @@ exports.getAll = function(callback) {
 			console.log("reTurning:" + dataStore);
 			callback(dataStore);
 		});
-	}else if(this.userType=="teacher"){
+	} else if (this.userType == "teacher") {
 		Schedule(this.userName, this.userType, ["IXA"], function() {
 			console.log("reTurning:" + teacherSchedule);
 			callback(teacherSchedule);
