@@ -42,7 +42,7 @@ function actionLogin(e) {
 				//Set User name and type for future in your local Data
 				AppData.userName = user.username;
 				AppData.userType = user.custom_fields.type;
-				var indexController = Alloy.createController('index');				
+				var indexController = Alloy.createController('index');
 				if (OS_IOS) {
 					Alloy.Globals.navgroup.close();
 					Alloy.Globals.navgroup = null;
@@ -56,8 +56,39 @@ function actionLogin(e) {
 			}
 		});
 
+		var CloudPush = require('ti.cloudpush');
+		CloudPush.retrieveDeviceToken({
+			success : function deviceTokenSuccess(e) {
+				Ti.API.info('Device Token: ' + e.deviceToken);
+			},
+			error : function deviceTokenError(e) {
+				alert('Failed to register for push! ' + e.error);
+			}
+		});
+		var win = Ti.UI.createWindow({
+			layout : 'vertical',
+			backgroundColor : 'white'
+		});
+		var enablePush = Ti.UI.createButton({
+			title : 'Enable Push Notifications'
+		});
+		enablePush.addEventListener('click', function() {
+			CloudPush.enabled = true;
+		});
+		win.add(enablePush);
+		CloudPush.addEventListener('callback', function(evt) {
+			alert(evt.payload);
+		});
+		CloudPush.addEventListener('trayClickLaunchedApp', function(evt) {
+			Ti.API.info('Tray Click Launched App (app was not running)');
+		});
+		CloudPush.addEventListener('trayClickFocusedApp', function(evt) {
+			Ti.API.info('Tray Click Focused App (app was already running)');
+		});
+		win.open();
+		$.activityIndicator.hide();
+		
 		// AppData.login($.inputUsername.value, $.inputPassword.value, function(response) {
-		// $.activityIndicator.hide();
 		// $.buttonLogin.enabled = true;
 
 		// if (response.result === 'ok') {

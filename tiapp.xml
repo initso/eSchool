@@ -10,6 +10,7 @@
     <property name="acs-oauth-secret-development" type="string">JS9G346zqASqhvzuRdYfMH1HrZZKr6z7</property>
     <property name="acs-oauth-key-development" type="string">ZzmzgIERoSM6S0zG4o4mTgiWgTpXeYrP</property>
     <property name="acs-api-key-development" type="string">cGcCMYE30yW39hDZbHPLMm0reJ3KUshi</property>
+    <property name="acs-grouped-notification-message" type="string">You have $number$ unread messages.</property>
     <id>com.demo.hello</id>
     <name>HelloWorld</name>
     <version>1.0</version>
